@@ -1,0 +1,20 @@
+{
+  "sites": [
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "url": "https://www.youtube.com/",
+      "group": "Entertainment",
+      "expectStatus": 200,
+      "timeoutMs": 10000
+    },
+    {
+      "id": "personal-site",
+      "name": "sayyidazizii.web.id",
+      "url": "https://sayyidazizii.web.id",
+      "group": "Personal",
+      "expectStatus": 200,
+      "timeoutMs": 10000
+    }
+  ]
+}

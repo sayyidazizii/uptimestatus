@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Status — sayyidazizii infra</title>
+<meta name="description" content="Status langsung untuk MrTopup, Nevalis, x45, ZAWA, dan layanan lainnya." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="scanline" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <div class="brand">
+      <span class="brand__mark" id="globalDot" data-state="unknown"></span>
+      <span class="brand__name">sayyidazizii<span class="brand__dim">/infra-status</span></span>
+    </div>
+    <div class="topbar__meta">
+      <span id="globalSummary">memuat…</span>
+      <span class="topbar__sep">·</span>
+      <span id="lastChecked">—</span>
+    </div>
+  </div>
+</header>
+
+<main class="board">
+
+  <section class="hero">
+    <h1 class="hero__title">Semua sistem,<br>satu pandangan.</h1>
+    <p class="hero__sub">
+      Tiap baris di bawah adalah satu layanan. Tiap kotak di "denyut" adalah satu pengecekan,
+      diulang otomatis setiap 5 menit lewat GitHub Actions. Merah berarti turun —
+      dan kamu sudah dapat WhatsApp tentang itu sebelum membaca ini.
+    </p>
+  </section>
+
+  <section id="groups" class="groups">
+    <!-- diisi oleh JS -->
+  </section>
+
+  <section class="legend" aria-label="Keterangan">
+    <div class="legend__item"><span class="dot dot--up"></span> Normal</div>
+    <div class="legend__item"><span class="dot dot--down"></span> Bermasalah</div>
+    <div class="legend__item"><span class="dot dot--unknown"></span> Belum ada data</div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>
+    Data diperbarui otomatis oleh GitHub Actions, disimpan sebagai
+    <code>data/status.json</code> di repo ini. Notifikasi perubahan status dikirim
+    ke WhatsApp lewat <a href="https://azickri.gitbook.io/zawa" target="_blank" rel="noopener">ZAWA</a>.
+  </p>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+name: Check Site Status
+
+on:
+  schedule:
+    # Tiap 5 menit. GitHub Actions cron bisa delay beberapa menit saat traffic tinggi,
+    # itu normal dan di luar kendali kita.
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - "data/sites.json"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: check-site-status
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Jalankan pengecekan status
+        env:
+          ZAWA_BASE_URL: ${{ secrets.ZAWA_BASE_URL }}
+          ZAWA_SESSION_ID: ${{ secrets.ZAWA_SESSION_ID }}
+          ZAWA_SESSION_KEY: ${{ secrets.ZAWA_SESSION_KEY }}
+          ZAWA_NOTIFY_PHONE: ${{ secrets.ZAWA_NOTIFY_PHONE }}
+          ZAWA_NOTIFY_GROUP: ${{ secrets.ZAWA_NOTIFY_GROUP }}
+        run: node scripts/check-sites.js
+
+      - name: Commit hasil status terbaru
+        run: |
+          git config user.name "uptime-bot"
+          git config user.email "uptime-bot@users.noreply.github.com"
+          git add data/status.json
+          if git diff --cached --quiet; then
+            echo "Tidak ada perubahan status untuk di-commit."
+          else
+            git commit -m "chore: update status [skip ci]"
+            git push
+          fi
