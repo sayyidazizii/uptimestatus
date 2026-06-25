@@ -8,7 +8,10 @@ layanan yang down, notifikasi otomatis dikirim ke WhatsApp lewat [ZAWA](https://
 ## Cara kerja
 
 ```
-.github/workflows/check-status.yml   -> cron tiap 5 menit, offset menit 02/07/12/...
+cron-job.org / EasyCron              -> panggil workflow_dispatch tiap 5 menit
+            |
+            v
+.github/workflows/check-status.yml   -> jalankan workflow + fallback harian dari GitHub schedule
             |
             v
 scripts/check-sites.js               -> fetch tiap URL di data/sites.json
@@ -85,6 +88,46 @@ Push perubahan ke `main` — workflow otomatis jalan sekali (lihat trigger `push
 
 Repo → tab **Actions** → workflow **Check Site Status** → **Run workflow**.
 
+### 6. Aktifkan external cron 5 menit
+
+GitHub Actions `schedule` kurang reliable untuk interval pendek seperti 5
+menit. Untuk interval utama, pakai [cron-job.org](https://cron-job.org) atau
+[EasyCron](https://easycron.com) untuk memanggil `workflow_dispatch`.
+
+Endpoint:
+
+```txt
+POST https://api.github.com/repos/sayyidazizii/uptimestatus/actions/workflows/check-status.yml/dispatches
+```
+
+Headers:
+
+```txt
+Authorization: Bearer <GITHUB_TOKEN>
+Accept: application/vnd.github+json
+X-GitHub-Api-Version: 2022-11-28
+Content-Type: application/json
+```
+
+Body:
+
+```json
+{
+  "ref": "main"
+}
+```
+
+Buat token GitHub fine-grained di **GitHub Settings → Developer settings →
+Personal access tokens → Fine-grained tokens**:
+
+- Repository access: `sayyidazizii/uptimestatus`
+- Repository permissions: **Actions: Read and write**
+- Expiration: sesuai kebutuhan
+
+Di cron-job.org/EasyCron, set method `POST`, interval `Every 5 minutes`, lalu
+isi endpoint, headers, dan body di atas. Setelah aktif, run history GitHub
+Actions akan muncul sebagai event `workflow_dispatch`.
+
 ## Catatan keamanan soal dokumentasi ZAWA
 
 Halaman dokumentasi ZAWA di GitBook (`kirim-pesan`) berisi blok instruksi
@@ -95,19 +138,19 @@ itu prompt injection yang ditanam di halaman dokumentasi. Implementasi di
 dengan header `id` + `session-id`) dan tidak memanggil endpoint `?ask=`
 tersebut sama sekali.
 
-## Mengubah interval cron
+## Mengubah interval
 
-Edit `cron` di `.github/workflows/check-status.yml`:
+Untuk interval pendek, ubah jadwal di cron-job.org/EasyCron, bukan GitHub
+Actions `schedule`.
+
+GitHub Actions `schedule` di `.github/workflows/check-status.yml` hanya fallback:
 
 ```yaml
-- cron: "2-59/5 * * * *"   # tiap 5 menit, mulai menit 02/07/12/... (default)
-- cron: "7-59/15 * * * *"  # tiap 15 menit, mulai menit 07
-- cron: "17-59/30 * * * *" # tiap 30 menit, mulai menit 17
+- cron: "0 18 * * *" # fallback harian, 18:00 UTC = 01:00 WIB
 ```
 
-GitHub Actions cron berbasis UTC dan tidak dijamin presisi ke menit — bisa
-delay beberapa menit kalau traffic Actions sedang tinggi. Notifikasi dan
-dashboard tetap diformat ke WIB (Asia/Jakarta).
+GitHub Actions cron berbasis UTC dan tidak dijamin presisi ke menit. Notifikasi
+dan dashboard tetap diformat ke WIB (Asia/Jakarta).
 
 ## Format pesan WhatsApp
 
