@@ -1,6 +1,14 @@
 {
   "sites": [
     {
+      "id": "30m",
+      "name": "30m.co.id",
+      "url": "https://30m.co.id/",
+      "group": "Topup",
+      "expectStatus": 200,
+      "timeoutMs": 10000
+    },
+    {
       "id": "youtube",
       "name": "YouTube",
       "url": "https://www.youtube.com/",
