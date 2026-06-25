@@ -13,7 +13,7 @@ layanan yang down, notifikasi otomatis dikirim ke WhatsApp lewat [ZAWA](https://
             v
 scripts/check-sites.js               -> fetch tiap URL di data/sites.json
             |                            simpan hasil + history ke data/status.json
-            |                            kalau ada transisi UP<->DOWN, kirim WA via ZAWA
+            |                            kalau status DOWN atau RECOVERED, kirim WA via ZAWA
             v
 git commit & push data/status.json   -> otomatis ter-deploy ulang oleh GitHub Pages
             |
@@ -115,6 +115,7 @@ Down:
 🔴 DOWN — Sayyidazizii
 https://sayyidazizii.web.id
 Alasan: HTTP 503
+Durasi: down selama ~12 menit
 Waktu: 2026-06-25T08:10:00.000Z
 ```
 

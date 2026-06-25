@@ -6,7 +6,7 @@
  * 1. Baca data/sites.json (daftar situs yang dipantau)
  * 2. Cek tiap situs (HTTP request, ukur latency, cek status code)
  * 3. Bandingkan dengan status sebelumnya (data/status.json)
- * 4. Kalau ada perubahan status (UP -> DOWN atau DOWN -> UP), kirim WA via ZAWA
+ * 4. Kalau status terbaru DOWN atau baru RECOVERED, kirim WA via ZAWA
  * 5. Tulis ulang data/status.json dengan hasil terbaru + history (max N entri terakhir)
  *
  * Env vars yang dibutuhkan (diisi lewat GitHub Actions secrets):
@@ -147,14 +147,20 @@ async function sendWhatsApp(message) {
   }
 }
 
-function formatDownMessage(site, result) {
+function formatDownMessage(site, result, downSince) {
   const reason = result.error
     ? `error: ${result.error}`
     : `HTTP ${result.httpStatus}`;
+  let durasi = "";
+  if (downSince) {
+    const ms = Date.now() - new Date(downSince).getTime();
+    const mins = Math.max(1, Math.round(ms / 60000));
+    durasi = `\nDurasi: down selama ~${mins} menit`;
+  }
   return (
     `🔴 *DOWN* — ${site.name}\n` +
     `${site.url}\n` +
-    `Alasan: ${reason}\n` +
+    `Alasan: ${reason}${durasi}\n` +
     `Waktu: ${nowIso()}`
   );
 }
@@ -222,9 +228,9 @@ async function main() {
       history,
     };
 
-    // Transisi status -> kirim notifikasi
-    if (wasUp && !isUp) {
-      notifications.push({ kind: "down", site, result });
+    // Kirim notifikasi setiap hasil terbaru masih down.
+    if (!isUp) {
+      notifications.push({ kind: "down", site, result, downSince });
     } else if (!wasUp && isUp) {
       notifications.push({ kind: "up", site, result, downSince: prev ? prev.downSince : null });
     }
@@ -235,13 +241,13 @@ async function main() {
   for (const n of notifications) {
     const message =
       n.kind === "down"
-        ? formatDownMessage(n.site, n.result)
+        ? formatDownMessage(n.site, n.result, n.downSince)
         : formatUpMessage(n.site, n.result, n.downSince);
     await sendWhatsApp(message);
   }
 
   if (notifications.length === 0) {
-    console.log("Tidak ada perubahan status. Tidak ada notifikasi dikirim.");
+    console.log("Tidak ada status down/recovered. Tidak ada notifikasi dikirim.");
   }
 
   console.log("Selesai. Status tersimpan di data/status.json");
