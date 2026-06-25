@@ -1,64 +1,15 @@
 {
-  "lastCheckedAt": "2026-06-25T10:00:15.155Z",
+  "lastCheckedAt": "2026-06-25T10:01:06.837Z",
   "sites": {
-    "30m": {
-      "name": "30m.co.id",
-      "url": "https://30m.co.id/",
-      "group": "Topup",
-      "up": false,
-      "httpStatus": 403,
-      "latencyMs": 261,
-      "error": null,
-      "lastCheckedAt": "2026-06-25T10:00:15.420Z",
-      "downSince": "2026-06-25T08:45:40.877Z",
-      "history": [
-        {
-          "t": "2026-06-25T08:45:40.877Z",
-          "up": false,
-          "httpStatus": 403,
-          "latencyMs": 191
-        },
-        {
-          "t": "2026-06-25T08:46:46.978Z",
-          "up": false,
-          "httpStatus": 403,
-          "latencyMs": 807
-        },
-        {
-          "t": "2026-06-25T09:15:55.034Z",
-          "up": false,
-          "httpStatus": 403,
-          "latencyMs": 183
-        },
-        {
-          "t": "2026-06-25T09:54:17.265Z",
-          "up": false,
-          "httpStatus": 403,
-          "latencyMs": 100
-        },
-        {
-          "t": "2026-06-25T09:55:55.666Z",
-          "up": false,
-          "httpStatus": 403,
-          "latencyMs": 255
-        },
-        {
-          "t": "2026-06-25T10:00:15.420Z",
-          "up": false,
-          "httpStatus": 403,
-          "latencyMs": 261
-        }
-      ]
-    },
     "youtube": {
       "name": "YouTube",
       "url": "https://www.youtube.com/",
       "group": "Entertainment",
       "up": true,
       "httpStatus": 200,
-      "latencyMs": 194,
+      "latencyMs": 230,
       "error": null,
-      "lastCheckedAt": "2026-06-25T10:00:15.614Z",
+      "lastCheckedAt": "2026-06-25T10:01:07.071Z",
       "downSince": null,
       "history": [
         {
@@ -102,6 +53,12 @@
           "up": true,
           "httpStatus": 200,
           "latencyMs": 194
+        },
+        {
+          "t": "2026-06-25T10:01:07.071Z",
+          "up": true,
+          "httpStatus": 200,
+          "latencyMs": 230
         }
       ]
     },
@@ -111,9 +68,9 @@
       "group": "Personal",
       "up": true,
       "httpStatus": 200,
-      "latencyMs": 381,
+      "latencyMs": 545,
       "error": null,
-      "lastCheckedAt": "2026-06-25T10:00:15.995Z",
+      "lastCheckedAt": "2026-06-25T10:01:07.617Z",
       "downSince": null,
       "history": [
         {
@@ -157,6 +114,12 @@
           "up": true,
           "httpStatus": 200,
           "latencyMs": 381
+        },
+        {
+          "t": "2026-06-25T10:01:07.617Z",
+          "up": true,
+          "httpStatus": 200,
+          "latencyMs": 545
         }
       ]
     }
