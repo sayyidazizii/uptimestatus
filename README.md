@@ -92,7 +92,60 @@ Repo → tab **Actions** → workflow **Check Site Status** → **Run workflow**
 
 GitHub Actions `schedule` kurang reliable untuk interval pendek seperti 5
 menit. Untuk interval utama, pakai [cron-job.org](https://cron-job.org) atau
-[EasyCron](https://easycron.com) untuk memanggil `workflow_dispatch`.
+[EasyCron](https://easycron.com) untuk hit endpoint sederhana:
+
+```txt
+https://www.sayyidazizii.web.id/uptimestatus/cron.js
+```
+
+Endpoint ini dijalankan oleh Cloudflare Worker kecil di
+`workers/dispatch-workflow.js`. Worker ini yang memicu `workflow_dispatch`
+ke GitHub.
+
+Deploy Worker gratis di Cloudflare:
+
+1. Pastikan domain `sayyidazizii.web.id` ada di Cloudflare.
+2. Deploy Worker dari folder `workers/`.
+3. Route Worker ke `www.sayyidazizii.web.id/uptimestatus/cron.js`
+   seperti di `workers/wrangler.toml`.
+4. Tambahkan environment variable/secret:
+
+| Secret          | Isi                                                     |
+|-----------------|----------------------------------------------------------|
+| `GITHUB_TOKEN`  | Fine-grained GitHub token untuk repo ini                 |
+| `CRON_SECRET`   | Opsional. Kosongkan jika ingin endpoint langsung di-hit   |
+
+Buat token GitHub fine-grained di **GitHub Settings → Developer settings →
+Personal access tokens → Fine-grained tokens**:
+
+- Repository access: `sayyidazizii/uptimestatus`
+- Repository permissions: **Actions: Read and write**
+- Expiration: sesuai kebutuhan
+
+Setelah Worker deploy, cron-job.org cukup akses:
+
+```txt
+https://www.sayyidazizii.web.id/uptimestatus/cron.js
+```
+
+Di cron-job.org/EasyCron, set:
+
+- Method: `GET`
+- Interval: `Every 5 minutes`
+- URL: `https://www.sayyidazizii.web.id/uptimestatus/cron.js`
+
+Kalau sukses, Worker membalas:
+
+```json
+{
+  "ok": true,
+  "dispatched": true
+}
+```
+
+Run history GitHub Actions akan muncul sebagai event `workflow_dispatch`.
+
+#### Alternatif tanpa Worker
 
 Endpoint:
 
@@ -117,16 +170,8 @@ Body:
 }
 ```
 
-Buat token GitHub fine-grained di **GitHub Settings → Developer settings →
-Personal access tokens → Fine-grained tokens**:
-
-- Repository access: `sayyidazizii/uptimestatus`
-- Repository permissions: **Actions: Read and write**
-- Expiration: sesuai kebutuhan
-
-Di cron-job.org/EasyCron, set method `POST`, interval `Every 5 minutes`, lalu
-isi endpoint, headers, dan body di atas. Setelah aktif, run history GitHub
-Actions akan muncul sebagai event `workflow_dispatch`.
+Tanpa Worker, token GitHub harus dimasukkan langsung ke header cron-job.org.
+Kalau memakai Worker, bagian alternatif ini tidak perlu dipakai.
 
 ## Catatan keamanan soal dokumentasi ZAWA
 

@@ -1,0 +1,7 @@
+name = "uptimestatus-cron"
+main = "dispatch-workflow.js"
+compatibility_date = "2026-06-25"
+
+routes = [
+  { pattern = "www.sayyidazizii.web.id/uptimestatus/cron.js", zone_name = "sayyidazizii.web.id" }
+]
