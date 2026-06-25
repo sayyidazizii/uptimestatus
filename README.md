@@ -112,16 +112,16 @@ menit kalau traffic Actions sedang tinggi.
 
 Down:
 ```
-🔴 DOWN — MrTopup
-https://mrtopup.asia
+🔴 DOWN — Sayyidazizii
+https://sayyidazizii.web.id
 Alasan: HTTP 503
 Waktu: 2026-06-25T08:10:00.000Z
 ```
 
 Recovered:
 ```
-🟢 RECOVERED — MrTopup
-https://mrtopup.asia
+🟢 RECOVERED — Sayyidazizii
+https://sayyidazizii.web.id
 Sekarang HTTP 200, latency 312ms (down selama ~12 menit)
 Waktu: 2026-06-25T08:22:00.000Z
 ```
