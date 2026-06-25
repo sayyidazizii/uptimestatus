@@ -6,6 +6,17 @@
 
 const STATUS_URL = "data/status.json";
 const REFRESH_INTERVAL_MS = 60 * 1000; // refresh tampilan tiap 1 menit
+const WIB_TIME_FORMATTER = new Intl.DateTimeFormat("id-ID", {
+  timeZone: "Asia/Jakarta",
+  dateStyle: "medium",
+  timeStyle: "long",
+  hour12: false,
+});
+
+function formatWibTime(isoString) {
+  if (!isoString) return "belum pernah dicek";
+  return WIB_TIME_FORMATTER.format(new Date(isoString));
+}
 
 function timeAgo(isoString) {
   if (!isoString) return "belum pernah dicek";
@@ -34,7 +45,7 @@ function buildHeartbeat(history) {
     bar.className = "heartbeat__bar";
     if (entry) {
       bar.dataset.up = String(entry.up);
-      bar.title = `${entry.t} — ${entry.up ? "normal" : "bermasalah"}${entry.latencyMs ? " · " + entry.latencyMs + "ms" : ""}`;
+      bar.title = `${formatWibTime(entry.t)} — ${entry.up ? "normal" : "bermasalah"}${entry.latencyMs ? " · " + entry.latencyMs + "ms" : ""}`;
     }
     wrap.appendChild(bar);
   }
@@ -141,7 +152,7 @@ function render(statusData) {
 
   const lastChecked = document.getElementById("lastChecked");
   lastChecked.textContent = statusData.lastCheckedAt
-    ? `diperbarui ${timeAgo(statusData.lastCheckedAt)}`
+    ? `diperbarui ${timeAgo(statusData.lastCheckedAt)} (${formatWibTime(statusData.lastCheckedAt)})`
     : "belum pernah dicek";
 }
 

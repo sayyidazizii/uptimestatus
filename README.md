@@ -8,7 +8,7 @@ layanan yang down, notifikasi otomatis dikirim ke WhatsApp lewat [ZAWA](https://
 ## Cara kerja
 
 ```
-.github/workflows/check-status.yml   -> cron tiap 5 menit
+.github/workflows/check-status.yml   -> cron tiap 5 menit, offset menit 02/07/12/...
             |
             v
 scripts/check-sites.js               -> fetch tiap URL di data/sites.json
@@ -100,13 +100,14 @@ tersebut sama sekali.
 Edit `cron` di `.github/workflows/check-status.yml`:
 
 ```yaml
-- cron: "*/5 * * * *"   # tiap 5 menit (default)
-- cron: "*/15 * * * *"  # tiap 15 menit
-- cron: "*/30 * * * *"  # tiap 30 menit
+- cron: "2-59/5 * * * *"   # tiap 5 menit, mulai menit 02/07/12/... (default)
+- cron: "7-59/15 * * * *"  # tiap 15 menit, mulai menit 07
+- cron: "17-59/30 * * * *" # tiap 30 menit, mulai menit 17
 ```
 
-GitHub Actions cron tidak dijamin presisi ke menit — bisa delay beberapa
-menit kalau traffic Actions sedang tinggi.
+GitHub Actions cron berbasis UTC dan tidak dijamin presisi ke menit — bisa
+delay beberapa menit kalau traffic Actions sedang tinggi. Notifikasi dan
+dashboard tetap diformat ke WIB (Asia/Jakarta).
 
 ## Format pesan WhatsApp
 
@@ -116,7 +117,7 @@ Down:
 https://sayyidazizii.web.id
 Alasan: HTTP 503
 Durasi: down selama ~12 menit
-Waktu: 2026-06-25T08:10:00.000Z
+Waktu: 25 Jun 2026, 15.10.00 WIB
 ```
 
 Recovered:
@@ -124,5 +125,5 @@ Recovered:
 🟢 RECOVERED — Sayyidazizii
 https://sayyidazizii.web.id
 Sekarang HTTP 200, latency 312ms (down selama ~12 menit)
-Waktu: 2026-06-25T08:22:00.000Z
+Waktu: 25 Jun 2026, 15.22.00 WIB
 ```

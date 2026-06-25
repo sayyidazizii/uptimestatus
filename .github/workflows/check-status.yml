@@ -2,9 +2,9 @@ name: Check Site Status
 
 on:
   schedule:
-    # Tiap 5 menit. GitHub Actions cron bisa delay beberapa menit saat traffic tinggi,
-    # itu normal dan di luar kendali kita.
-    - cron: "*/5 * * * *"
+    # Tiap 5 menit, digeser dari menit 00/05/10 agar tidak terlalu ramai di scheduler GitHub.
+    # Cron GitHub tetap berbasis UTC; tampilan/notifikasi diformat ke WIB oleh script.
+    - cron: "2-59/5 * * * *"
   workflow_dispatch: {}
   push:
     branches: [main]
@@ -21,6 +21,8 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Jakarta
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4

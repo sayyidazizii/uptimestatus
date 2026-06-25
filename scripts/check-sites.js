@@ -31,6 +31,13 @@ const ZAWA_SESSION_KEY = process.env.ZAWA_SESSION_KEY || "";
 const ZAWA_NOTIFY_PHONE = process.env.ZAWA_NOTIFY_PHONE || "";
 const ZAWA_NOTIFY_GROUP = process.env.ZAWA_NOTIFY_GROUP || "";
 
+const WIB_TIME_FORMATTER = new Intl.DateTimeFormat("id-ID", {
+  timeZone: "Asia/Jakarta",
+  dateStyle: "medium",
+  timeStyle: "long",
+  hour12: false,
+});
+
 function readJson(filePath, fallback) {
   try {
     return JSON.parse(fs.readFileSync(filePath, "utf-8"));
@@ -45,6 +52,10 @@ function writeJson(filePath, data) {
 
 function nowIso() {
   return new Date().toISOString();
+}
+
+function formatWibTime(date = new Date()) {
+  return WIB_TIME_FORMATTER.format(date);
 }
 
 /**
@@ -161,7 +172,7 @@ function formatDownMessage(site, result, downSince) {
     `🔴 *DOWN* — ${site.name}\n` +
     `${site.url}\n` +
     `Alasan: ${reason}${durasi}\n` +
-    `Waktu: ${nowIso()}`
+    `Waktu: ${formatWibTime()}`
   );
 }
 
@@ -176,7 +187,7 @@ function formatUpMessage(site, result, downSince) {
     `🟢 *RECOVERED* — ${site.name}\n` +
     `${site.url}\n` +
     `Sekarang HTTP ${result.httpStatus}, latency ${result.latencyMs}ms${durasi}\n` +
-    `Waktu: ${nowIso()}`
+    `Waktu: ${formatWibTime()}`
   );
 }
 
