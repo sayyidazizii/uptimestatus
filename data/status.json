@@ -1,5 +1,5 @@
 {
-  "lastCheckedAt": "2026-06-25T09:15:54.846Z",
+  "lastCheckedAt": "2026-06-25T09:54:17.159Z",
   "sites": {
     "30m": {
       "name": "30m.co.id",
@@ -7,9 +7,9 @@
       "group": "Topup",
       "up": false,
       "httpStatus": 403,
-      "latencyMs": 183,
+      "latencyMs": 100,
       "error": null,
-      "lastCheckedAt": "2026-06-25T09:15:55.034Z",
+      "lastCheckedAt": "2026-06-25T09:54:17.265Z",
       "downSince": "2026-06-25T08:45:40.877Z",
       "history": [
         {
@@ -29,6 +29,12 @@
           "up": false,
           "httpStatus": 403,
           "latencyMs": 183
+        },
+        {
+          "t": "2026-06-25T09:54:17.265Z",
+          "up": false,
+          "httpStatus": 403,
+          "latencyMs": 100
         }
       ]
     },
@@ -38,9 +44,9 @@
       "group": "Entertainment",
       "up": true,
       "httpStatus": 200,
-      "latencyMs": 178,
+      "latencyMs": 173,
       "error": null,
-      "lastCheckedAt": "2026-06-25T09:15:55.212Z",
+      "lastCheckedAt": "2026-06-25T09:54:17.438Z",
       "downSince": null,
       "history": [
         {
@@ -66,6 +72,12 @@
           "up": true,
           "httpStatus": 200,
           "latencyMs": 178
+        },
+        {
+          "t": "2026-06-25T09:54:17.438Z",
+          "up": true,
+          "httpStatus": 200,
+          "latencyMs": 173
         }
       ]
     },
@@ -75,9 +87,9 @@
       "group": "Personal",
       "up": true,
       "httpStatus": 200,
-      "latencyMs": 368,
+      "latencyMs": 542,
       "error": null,
-      "lastCheckedAt": "2026-06-25T09:15:55.580Z",
+      "lastCheckedAt": "2026-06-25T09:54:17.980Z",
       "downSince": null,
       "history": [
         {
@@ -103,6 +115,12 @@
           "up": true,
           "httpStatus": 200,
           "latencyMs": 368
+        },
+        {
+          "t": "2026-06-25T09:54:17.980Z",
+          "up": true,
+          "httpStatus": 200,
+          "latencyMs": 542
         }
       ]
     }
