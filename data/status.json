@@ -1,4 +1,43 @@
 {
-  "lastCheckedAt": null,
-  "sites": {}
+  "lastCheckedAt": "2026-06-25T08:36:59.649Z",
+  "sites": {
+    "youtube": {
+      "name": "YouTube",
+      "url": "https://www.youtube.com/",
+      "group": "Entertainment",
+      "up": true,
+      "httpStatus": 200,
+      "latencyMs": 179,
+      "error": null,
+      "lastCheckedAt": "2026-06-25T08:36:59.833Z",
+      "downSince": null,
+      "history": [
+        {
+          "t": "2026-06-25T08:36:59.833Z",
+          "up": true,
+          "httpStatus": 200,
+          "latencyMs": 179
+        }
+      ]
+    },
+    "personal-site": {
+      "name": "sayyidazizii.web.id",
+      "url": "https://sayyidazizii.web.id",
+      "group": "Personal",
+      "up": true,
+      "httpStatus": 200,
+      "latencyMs": 445,
+      "error": null,
+      "lastCheckedAt": "2026-06-25T08:37:00.278Z",
+      "downSince": null,
+      "history": [
+        {
+          "t": "2026-06-25T08:37:00.278Z",
+          "up": true,
+          "httpStatus": 200,
+          "latencyMs": 445
+        }
+      ]
+    }
+  }
 }
