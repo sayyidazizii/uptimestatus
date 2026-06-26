@@ -1,5 +1,5 @@
 {
-  "lastCheckedAt": "2026-06-26T01:40:19.591Z",
+  "lastCheckedAt": "2026-06-26T01:45:14.913Z",
   "sites": {
     "youtube": {
       "name": "YouTube",
@@ -7,17 +7,11 @@
       "group": "Entertainment",
       "up": true,
       "httpStatus": 200,
-      "latencyMs": 249,
+      "latencyMs": 279,
       "error": null,
-      "lastCheckedAt": "2026-06-26T01:40:19.847Z",
+      "lastCheckedAt": "2026-06-26T01:45:15.197Z",
       "downSince": null,
       "history": [
-        {
-          "t": "2026-06-25T21:35:14.433Z",
-          "up": true,
-          "httpStatus": 200,
-          "latencyMs": 329
-        },
         {
           "t": "2026-06-25T21:40:17.649Z",
           "up": true,
@@ -311,6 +305,12 @@
           "up": true,
           "httpStatus": 200,
           "latencyMs": 249
+        },
+        {
+          "t": "2026-06-26T01:45:15.197Z",
+          "up": true,
+          "httpStatus": 200,
+          "latencyMs": 279
         }
       ]
     },
@@ -320,17 +320,11 @@
       "group": "Personal",
       "up": true,
       "httpStatus": 200,
-      "latencyMs": 261,
+      "latencyMs": 292,
       "error": null,
-      "lastCheckedAt": "2026-06-26T01:40:20.108Z",
+      "lastCheckedAt": "2026-06-26T01:45:15.490Z",
       "downSince": null,
       "history": [
-        {
-          "t": "2026-06-25T21:35:14.908Z",
-          "up": true,
-          "httpStatus": 200,
-          "latencyMs": 475
-        },
         {
           "t": "2026-06-25T21:40:17.979Z",
           "up": true,
@@ -624,6 +618,12 @@
           "up": true,
           "httpStatus": 200,
           "latencyMs": 261
+        },
+        {
+          "t": "2026-06-26T01:45:15.490Z",
+          "up": true,
+          "httpStatus": 200,
+          "latencyMs": 292
         }
       ]
     }
